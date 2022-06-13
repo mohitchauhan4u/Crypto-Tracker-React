@@ -7,6 +7,8 @@ import {
   Typography,
   Toolbar,
   makeStyles,
+  createTheme,
+  ThemeProvider,
 } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 
@@ -23,28 +25,38 @@ const useStyles = makeStyles({
 const Header = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const darkTheme = createTheme({
+    palette: {
+      primary: {
+        main: "#fff",
+      },
+      type: "dark",
+    },
+  });
 
   return (
-    <AppBar color="transparent" position="static">
-      <Container>
-        <Toolbar>
-          <Typography className={classes.title} onClick={() => navigate("/")}>
-            Crypto Tracker
-          </Typography>
-          <Select
-            variant="outlined"
-            style={{
-              width: 100,
-              height: 40,
-              marginLeft: 15,
-            }}
-          >
-            <MenuItem>USD</MenuItem>
-            <MenuItem>INR</MenuItem>
-          </Select>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <ThemeProvider theme={darkTheme}>
+      <AppBar color="transparent" position="static">
+        <Container>
+          <Toolbar>
+            <Typography className={classes.title} onClick={() => navigate("/")}>
+              Crypto Tracker
+            </Typography>
+            <Select
+              variant="outlined"
+              style={{
+                width: 100,
+                height: 40,
+                marginLeft: 15,
+              }}
+            >
+              <MenuItem value={"USD"}>USD</MenuItem>
+              <MenuItem value={"INR"}>INR</MenuItem>
+            </Select>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </ThemeProvider>
   );
 };
 

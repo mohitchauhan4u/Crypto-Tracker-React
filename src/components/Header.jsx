@@ -8,6 +8,7 @@ import {
   Toolbar,
   makeStyles,
 } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   title: {
@@ -21,11 +22,15 @@ const useStyles = makeStyles({
 
 const Header = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
   return (
     <AppBar color="transparent" position="static">
       <Container>
         <Toolbar>
-          <Typography className={classes.title}>Crypto Tracker</Typography>
+          <Typography className={classes.title} onClick={() => navigate("/")}>
+            Crypto Tracker
+          </Typography>
           <Select
             variant="outlined"
             style={{

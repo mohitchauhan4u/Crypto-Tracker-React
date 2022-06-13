@@ -11,6 +11,7 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import { CryptoState } from "../CrypoContext";
 
 const useStyles = makeStyles({
   title: {
@@ -25,6 +26,9 @@ const useStyles = makeStyles({
 const Header = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const { currency, setCurrency } = CryptoState();
+
   const darkTheme = createTheme({
     palette: {
       primary: {
@@ -53,6 +57,8 @@ const Header = () => {
                 height: 40,
                 marginRight: 15,
               }}
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
             >
               <MenuItem value={"USD"}>USD</MenuItem>
               <MenuItem value={"INR"}>INR</MenuItem>

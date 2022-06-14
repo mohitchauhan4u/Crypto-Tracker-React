@@ -66,7 +66,9 @@ const CoinsTable = () => {
           {loading ? (
             <LinearProgress style={{ backgroundColor: "gold" }} />
           ) : (
-            <Table></Table>
+            <Table>
+              <TableHead></TableHead>
+            </Table>
           )}
         </TableContainer>
       </Container>

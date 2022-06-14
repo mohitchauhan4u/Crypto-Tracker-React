@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CoinList } from "../config/api";
 import { CryptoState } from "../CrypoContext";
 
+import {
+  Container,
+  createTheme,
+  TableCell,
+  LinearProgress,
+  ThemeProvider,
+  Typography,
+  TextField,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableContainer,
+  Table,
+  Paper,
+} from "@material-ui/core";
+
 const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { currency } = CryptoState;
+  const [search, setSearch] = useState();
+
+  const { currency } = CryptoState();
 
   const fetchCoins = async () => {
     setLoading(true);
@@ -14,8 +32,46 @@ const CoinsTable = () => {
     setCoins(data);
     setLoading(false);
   };
+  console.log(coins);
+  useEffect(() => {
+    fetchCoins();
+  }, [currency]);
 
-  return <div>CoinsTable</div>;
+  const darkTheme = createTheme({
+    palette: {
+      primary: {
+        main: "#fff",
+      },
+      type: "dark",
+    },
+  });
+
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <Container style={{ textAlign: "center" }}>
+        <Typography
+          varient="h4"
+          style={{ margin: 18, fontFamily: "Montserrat" }}
+        >
+          Cryptocurrency Prices by Market Cap
+        </Typography>
+        <TextField
+          label="Search For a Crypto Currency.."
+          variant="outlined"
+          style={{ marginBottom: 20, width: "100%" }}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <TableContainer>
+          {loading ? (
+            <LinearProgress style={{ backgroundColor: "gold" }} />
+          ) : (
+            <Table></Table>
+          )}
+        </TableContainer>
+      </Container>
+    </ThemeProvider>
+  );
 };
 
 export default CoinsTable;

@@ -20,6 +20,7 @@ import {
   Paper,
   makeStyles,
 } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
 
 const useStyles = makeStyles({
   row: {
@@ -186,6 +187,20 @@ const CoinsTable = () => {
             </Table>
           )}
         </TableContainer>
+        <Pagination
+          count={(handleSearch()?.length / 10).toFixed(0)}
+          style={{
+            padding: 20,
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+          classes={{ ul: classes.pagination }}
+          onChange={(_, value) => {
+            setPage(value);
+            window.scroll(0, 450);
+          }}
+        />
       </Container>
     </ThemeProvider>
   );

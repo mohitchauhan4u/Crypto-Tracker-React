@@ -4,6 +4,7 @@ import { CryptoState } from "../CrypoContext";
 import { SingleCoin } from "../config/api";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core";
+import CoinInfo from "../components/CoinInfo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -72,7 +73,12 @@ const CoinPage = () => {
     fetchCoin();
   }, []);
 
-  return <h1>CoinPage</h1>;
+  return (
+    <div className={classes.container}>
+      <div className={classes.sidebar}></div>
+      <CoinInfo />
+    </div>
+  );
 };
 
 export default CoinPage;

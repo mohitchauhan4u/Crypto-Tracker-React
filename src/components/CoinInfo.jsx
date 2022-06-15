@@ -1,55 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { HistoricalChart } from "../config/api";
-import { CryptoState } from "../CryptoContext";
-import { Line } from "react-chartjs-2";
 import axios from "axios";
-import { chartDays } from "../config/data";
-import SelectButton from "./SelectButton";
+import { useEffect, useState } from "react";
+import { HistoricalChart } from "../config/api";
+import { Line } from "react-chartjs-2";
 import {
   CircularProgress,
   createTheme,
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core";
+import SelectButton from "./SelectButton";
+import { chartDays } from "../config/data";
+import { CryptoState } from "../CryptoContext";
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    width: "75%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 25,
-    padding: 40,
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-      marginTop: 0,
-      padding: 20,
-      paddingTop: 0,
-    },
-  },
-}));
 const CoinInfo = ({ coin }) => {
-  const [historicalData, setHistoricalData] = useState();
-  const [days, setDays] = useState();
+  const [historicData, setHistoricData] = useState();
+  const [days, setDays] = useState(1);
+  const { currency } = CryptoState();
   const [flag, setflag] = useState(false);
 
-  const { currency } = CryptoState();
-  const classes = useStyles();
-
-  const fetchHistoricalData = async () => {
-    const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
-    setflag(true);
-    setHistoricalData(data.prices);
-  };
-
-  console.log(coin);
-
-  useEffect(() => {
-    fetchHistoricalData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [days]);
-
+  const useStyles = makeStyles((theme) => ({
+    container: {
+      width: "75%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 25,
+      padding: 40,
+      [theme.breakpoints.down("md")]: {
+        width: "100%",
+        marginTop: 0,
+        padding: 20,
+        paddingTop: 0,
+      },
+    },
+  }));
   const darkTheme = createTheme({
     palette: {
       primary: {
@@ -58,11 +43,25 @@ const CoinInfo = ({ coin }) => {
       type: "dark",
     },
   });
+  const classes = useStyles();
+
+  const fetchHistoricData = async () => {
+    const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
+    setflag(true);
+    setHistoricData(data.prices);
+  };
+
+  console.log(coin);
+
+  useEffect(() => {
+    fetchHistoricData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [days]);
 
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.container}>
-        {!historicalData | (flag === false) ? (
+        {!historicData | (flag === false) ? (
           <CircularProgress
             style={{ color: "gold" }}
             size={250}
@@ -72,7 +71,7 @@ const CoinInfo = ({ coin }) => {
           <>
             <Line
               data={{
-                labels: historicalData.map((coin) => {
+                labels: historicData.map((coin) => {
                   let date = new Date(coin[0]);
                   let time =
                     date.getHours() > 12
@@ -83,7 +82,7 @@ const CoinInfo = ({ coin }) => {
 
                 datasets: [
                   {
-                    data: historicalData.map((coin) => coin[1]),
+                    data: historicData.map((coin) => coin[1]),
                     label: `Price ( Past ${days} Days ) in ${currency}`,
                     borderColor: "#EEBC1D",
                   },

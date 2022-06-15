@@ -5,6 +5,7 @@ import { SingleCoin } from "../config/api";
 import axios from "axios";
 import { makeStyles, Typography } from "@material-ui/core";
 import CoinInfo from "../components/CoinInfo";
+import parse from "html-react-parser";
 
 export function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -90,7 +91,7 @@ const CoinPage = () => {
           {coin?.name}
         </Typography>
         <Typography variant="subtitle1" className={classes.description}>
-          {coin?.description.en.split(". ")[0]}.
+          {parse(coin?.description.en.split(". ")[0])}.
         </Typography>
       </div>
       <CoinInfo coin={coin} />

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import { Link } from "react-router-dom";
 import { TrendingCoins } from "../../config/api";
-import { CryptoState } from "../../CrypoContext";
+import { CryptoState } from "../../CryptoContext";
 
 export function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

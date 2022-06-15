@@ -61,6 +61,7 @@ const CoinsTable = () => {
   console.log(coins);
   useEffect(() => {
     fetchCoins();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency]);
 
   const darkTheme = createTheme({
@@ -96,7 +97,7 @@ const CoinsTable = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <TableContainer>
+        <TableContainer component={Paper}>
           {loading ? (
             <LinearProgress style={{ backgroundColor: "gold" }} />
           ) : (

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HistoricalChart } from "../config/api";
+
 import { Line } from "react-chartjs-2";
 import {
   CircularProgress,
@@ -11,6 +12,36 @@ import {
 import SelectButton from "./SelectButton";
 import { chartDays } from "../config/data";
 import { CryptoState } from "../CryptoContext";
+import { Chart as ChartJS, registerables } from "chart.js";
+import { Chart } from "react-chartjs-2";
+ChartJS.register(...registerables);
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    width: "75%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 25,
+    padding: 40,
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+      marginTop: 0,
+      padding: 20,
+      paddingTop: 0,
+    },
+  },
+}));
+
+const darkTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#fff",
+    },
+    type: "dark",
+  },
+});
 
 const CoinInfo = ({ coin }) => {
   const [historicData, setHistoricData] = useState();
@@ -18,31 +49,6 @@ const CoinInfo = ({ coin }) => {
   const { currency } = CryptoState();
   const [flag, setflag] = useState(false);
 
-  const useStyles = makeStyles((theme) => ({
-    container: {
-      width: "75%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: 25,
-      padding: 40,
-      [theme.breakpoints.down("md")]: {
-        width: "100%",
-        marginTop: 0,
-        padding: 20,
-        paddingTop: 0,
-      },
-    },
-  }));
-  const darkTheme = createTheme({
-    palette: {
-      primary: {
-        main: "#fff",
-      },
-      type: "dark",
-    },
-  });
   const classes = useStyles();
 
   const fetchHistoricData = async () => {

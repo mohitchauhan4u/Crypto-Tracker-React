@@ -116,7 +116,6 @@ const CoinInfo = ({ coin }) => {
                     setDays(day.value);
                     setflag(false);
                   }}
-                  selected={day.value === days}
                 >
                   {day.label}
                 </SelectButton>

@@ -8,19 +8,15 @@ const useStyles = makeStyles({
     paddingRight: 20,
     fontFamily: "Montserrat",
     cursor: "pointer",
-    // backgroundColor: selected ? "gold" : "",
-    // color: selected ? "black" : "",
-    // fontWeight: selected ? 700 : 500,
     "&:hover": {
       backgroundColor: "gold",
       color: "black",
     },
     width: "22%",
-    //   margin: 5,
   },
 });
 
-const SelectButton = ({ children, selected, onClick }) => {
+const SelectButton = ({ children, onClick }) => {
   const classes = useStyles();
 
   return (

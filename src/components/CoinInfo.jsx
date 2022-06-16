@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HistoricalChart } from "../config/api";
-
 import { Line } from "react-chartjs-2";
 import {
   CircularProgress,
@@ -13,7 +12,7 @@ import SelectButton from "./SelectButton";
 import { chartDays } from "../config/data";
 import { CryptoState } from "../CryptoContext";
 import { Chart as ChartJS, registerables } from "chart.js";
-import { Chart } from "react-chartjs-2";
+// import { Chart } from "react-chartjs-2";
 ChartJS.register(...registerables);
 
 const useStyles = makeStyles((theme) => ({

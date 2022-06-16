@@ -34,6 +34,7 @@ const Banner = () => {
               fontWeight: "bold",
               marginBottom: 15,
               fontFamily: "Montserrat",
+              textAlign: "center",
             }}
           >
             CRYPTO TRACKER
@@ -44,6 +45,7 @@ const Banner = () => {
               color: "darkgrey",
               textTransform: "capitalize",
               fontFamily: "Montserrat",
+              textAlign: "center",
             }}
           >
             Get all the Info regarding your favorite Crypto Currency
